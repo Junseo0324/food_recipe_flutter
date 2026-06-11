@@ -1,20 +1,14 @@
-import 'package:flutter_recipe_app/domain/model/recipe.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-class SavedRecipesState {
-  final List<Recipe> recipes;
-  final bool isLoading;
+import '../../domain/model/recipe.dart';
 
-  SavedRecipesState({
-    this.recipes = const [],
-    this.isLoading = false,
-  });
+part 'saved_recipes_state.freezed.dart';
 
-  SavedRecipesState copyWith({
-    List<Recipe>? recipes,
-    bool? isLoading,
-  }) {
-    return SavedRecipesState(
-        recipes: recipes ?? this.recipes,
-        isLoading: isLoading ?? this.isLoading);
-  }
+
+@freezed
+abstract class SavedRecipesState with _$SavedRecipesState {
+  const factory SavedRecipesState({
+    @Default([]) List<Recipe> recipes,
+    @Default(true) bool isLoading,
+  }) = _SavedRecipesState;
 }
