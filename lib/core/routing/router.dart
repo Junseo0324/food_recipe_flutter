@@ -7,11 +7,14 @@ import '../../data/repository/mock_recipe_repository_impl.dart';
 import '../../domain/model/recipe.dart';
 import '../../domain/use_case/get_saved_recipes_use_case.dart';
 import '../../presentation/saved_recipes/saved_recipes_screen.dart';
+import '../../presentation/sign_up/sign_up_screen.dart';
 import '../../presentation/splash/splash_screen.dart';
 
 final router = GoRouter(
-  initialLocation: '/Splash',
+  // initialLocation: '/Splash',
+  initialLocation: '/SignUp',
   routes: [
+    GoRoute(path: '/SignUp', builder: (context, state) => const SignUpScreen()),
     GoRoute(
       path: '/Splash',
       builder: (context, state) => SplashScreen(
