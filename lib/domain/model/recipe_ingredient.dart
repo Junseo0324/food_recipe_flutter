@@ -1,4 +1,4 @@
-import 'ingredeint.dart';
+import 'ingredient.dart';
 
 class RecipeIngredient {
   final Ingredient ingredient;
