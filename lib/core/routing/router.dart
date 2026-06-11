@@ -56,7 +56,7 @@ final router = GoRouter(
           routes: [
             GoRoute(
               path: RoutePaths.home,
-              builder: (context, state) => HomeScreen(),
+              builder: (context, state) => HomeScreen(name: 'jega',),
             ),
           ],
         ),
