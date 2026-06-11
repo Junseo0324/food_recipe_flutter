@@ -11,35 +11,50 @@ import '../../presentation/sign_up/sign_up_screen.dart';
 import '../../presentation/splash/splash_screen.dart';
 
 final router = GoRouter(
-  // initialLocation: '/Splash',
-  initialLocation: '/SignUp',
+  initialLocation: '/Splash',
   routes: [
-    GoRoute(path: '/SignUp', builder: (context, state) => const SignUpScreen()),
+    GoRoute(
+      path: '/SignUp',
+      builder:
+          (context, state) => SignUpScreen(
+            onTapSignIn: () {
+              context.go('/SignIn');
+            },
+          ),
+    ),
     GoRoute(
       path: '/Splash',
-      builder: (context, state) => SplashScreen(
-        onTapStartCooking: () => context.go('/SingIn')
-      ),
+      builder:
+          (context, state) =>
+              SplashScreen(onTapStartCooking: () => context.go('/SignIn')),
     ),
-    GoRoute(path: '/SingIn', builder: (context, state) => const SignInScreen()),
     GoRoute(
-        path: '/SavedRecipes',
-      builder: (context, state) => FutureBuilder<List<Recipe>>(
-        future:
-        GetSavedRecipesUseCase(
-          recipeRepository: MockRecipeRepositoryImpl(),
-          bookmarkRepository: MockBookmarkRepositoryImpl(),
-        ).execute(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(child: CircularProgressIndicator());
-          }
+      path: '/SignIn',
+      builder:
+          (context, state) => SignInScreen(
+            onTapSignUp: () => context.go('/SignUp'),
+            onTapSingIn: () => context.go('/SavedRecipes'),
+          ),
+    ),
+    GoRoute(
+      path: '/SavedRecipes',
+      builder:
+          (context, state) => FutureBuilder<List<Recipe>>(
+            future:
+                GetSavedRecipesUseCase(
+                  recipeRepository: MockRecipeRepositoryImpl(),
+                  bookmarkRepository: MockBookmarkRepositoryImpl(),
+                ).execute(),
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                return Center(child: CircularProgressIndicator());
+              }
 
-          final recipes = snapshot.data!;
+              final recipes = snapshot.data!;
 
-          return SavedRecipesScreen(recipes: recipes);
-        },
-      ),
+              return SavedRecipesScreen(recipes: recipes);
+            },
+          ),
     ),
   ],
 );
