@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app/core/presentation/components/big_button.dart';
+import 'package:flutter_recipe_app/core/presentation/components/input_field.dart';
 import 'package:flutter_recipe_app/core/presentation/components/medium_button.dart';
 import 'package:flutter_recipe_app/ui/text_styles.dart';
 
@@ -62,6 +63,10 @@ class MyHomePage extends StatelessWidget {
               },
             ),
           ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: const InputField(label: 'label', placeholder: 'placeholder'),
+          )
         ],
       ),
     );
