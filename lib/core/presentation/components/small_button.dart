@@ -6,8 +6,14 @@ import '../../../ui/color_styles.dart';
 class SmallButton extends StatefulWidget {
   final String text;
   final void Function() onPressed;
+  final Color color;
 
-  const SmallButton(this.text, {super.key, required this.onPressed});
+  const SmallButton(
+    this.text, {
+    super.key,
+    required this.onPressed,
+    this.color = AppColors.primary80,
+  });
 
   @override
   State<SmallButton> createState() => _SmallButtonState();
@@ -39,7 +45,7 @@ class _SmallButtonState extends State<SmallButton> {
         height: 37,
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(10),
-          color: isPressed ? AppColors.gray4 : AppColors.primary100 ,
+          color: isPressed ? AppColors.gray4 : widget.color,
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
