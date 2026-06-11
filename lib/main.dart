@@ -6,6 +6,7 @@ import 'package:flutter_recipe_app/core/presentation/components/medium_button.da
 import 'package:flutter_recipe_app/core/presentation/components/rating_button.dart';
 import 'package:flutter_recipe_app/core/presentation/components/two_tabs.dart';
 import 'package:flutter_recipe_app/core/presentation/dialogs/rating_dialog.dart';
+import 'package:flutter_recipe_app/presentation/sign_in/sign_in_screen.dart';
 import 'package:flutter_recipe_app/ui/text_styles.dart';
 
 import 'core/presentation/components/small_button.dart';
@@ -34,74 +35,6 @@ class MyHomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Components', style: TextStyles.largeTextBold),
-      ),
-      body: ListView(
-        children: [
-          ElevatedButton(
-            onPressed: () {
-              showDialog(
-                context: context,
-                builder: (_) {
-                  return RatingDialog(
-                    title: 'Rate Recipe',
-                    score: 3,
-                    actionName: 'send',
-                    onChange: (score) {
-                      print(score);
-                    },
-                  );
-                },
-              );
-            },
-            child: const Text('ratingDialog'),
-          ),
-          TwoTabs(
-            labels: ['label1', 'label2'],
-            selectedIndex: 0,
-            onChange: (index) {
-              print(index);
-            },
-          ),
-          RatingButton('text'),
-          RatingButton('text', isSelected: true),
-          FilterButton('text'),
-          FilterButton('text', isSelected: true),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: BigButton(
-              'Big Button',
-              onPressed: () {
-                print('big button');
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: MediumButton(
-              'medium button',
-              onPressed: () {
-                print('medium button');
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SmallButton(
-              'small button',
-              onPressed: () {
-                print('small button');
-              },
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: const InputField(label: 'label', placeholder: 'placeholder'),
-          ),
-        ],
-      ),
-    );
+    return SignInScreen();
   }
 }
