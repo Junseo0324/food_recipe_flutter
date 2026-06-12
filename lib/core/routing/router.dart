@@ -6,6 +6,7 @@ import 'package:flutter_recipe_app/presentation/main/main_screen.dart';
 import 'package:flutter_recipe_app/presentation/notifications/notifications_screen.dart';
 import 'package:flutter_recipe_app/presentation/profile/profile_screen.dart';
 import 'package:flutter_recipe_app/presentation/saved_recipes/screen/saved_recipes_root.dart';
+import 'package:flutter_recipe_app/presentation/search/search_root.dart';
 import 'package:flutter_recipe_app/presentation/search/search_screen.dart';
 import 'package:flutter_recipe_app/presentation/sign_in/sign_in_screen.dart';
 import 'package:go_router/go_router.dart';
@@ -62,7 +63,7 @@ final router = GoRouter(
               routes: [
                 GoRoute(
                   path: 'Search',
-                  builder: (context, state) => SearchScreen(),
+                  builder: (context, state) => SearchRoot(),
                 ),
               ]
             ),
