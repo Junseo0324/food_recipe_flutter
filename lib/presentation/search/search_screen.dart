@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_recipe_app/core/presentation/components/recipe_card.dart';
 import 'package:flutter_recipe_app/core/presentation/components/recipe_grid_item.dart';
 import 'package:flutter_recipe_app/presentation/search/search_state.dart';
 
@@ -9,8 +8,9 @@ import '../../ui/text_styles.dart';
 
 class SearchScreen extends StatelessWidget {
   final SearchState state;
+  final void Function(String query)? onChanged;
 
-  const SearchScreen({super.key, required this.state});
+  const SearchScreen({super.key, required this.state, this.onChanged});
 
   @override
   Widget build(BuildContext context) {
@@ -28,15 +28,9 @@ class SearchScreen extends StatelessWidget {
             Row(
               children: [
                 Expanded(
-                  child: GestureDetector(
-                    behavior: HitTestBehavior.opaque,
-                    onTap: () {},
-                    child: IgnorePointer(
-                      child: SearchInputField(
-                        placeholder: 'Search Recipe',
-                        isReadOnly: true,
-                      ),
-                    ),
+                  child: SearchInputField(
+                    placeholder: 'Search Recipe',
+                    onChanged: onChanged,
                   ),
                 ),
                 SizedBox(width: 20),
