@@ -6,8 +6,13 @@ import '../../ui/text_styles.dart';
 
 class HomeScreen extends StatelessWidget {
   final String name;
+  final void Function() onTapSearchField;
 
-  const HomeScreen({super.key, required this.name});
+  const HomeScreen({
+    super.key,
+    required this.name,
+    required this.onTapSearchField,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +21,7 @@ class HomeScreen extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 30),
         child: Column(
           children: [
-            SizedBox(height: 20,),
+            SizedBox(height: 20),
             Row(
               children: [
                 Column(
@@ -40,20 +45,26 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     color: AppColors.secondary40,
                   ),
-                  child: Icon(
-                    Icons.person_2,
-                    color: AppColors.primary40,
-                  ),
-                )
+                  child: Icon(Icons.person_2, color: AppColors.primary40),
+                ),
               ],
             ),
-            SizedBox(height: 30,),
+            SizedBox(height: 30),
             Row(
               children: [
                 Expanded(
-                    child: SearchInputField(placeholder: 'Search Recipe')
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: onTapSearchField,
+                    child: IgnorePointer(
+                      child: SearchInputField(
+                        placeholder: 'Search Recipe',
+                        isReadOnly: true,
+                      ),
+                    ),
+                  ),
                 ),
-                SizedBox(width: 20,),
+                SizedBox(width: 20),
                 Container(
                   width: 40,
                   height: 40,
@@ -61,13 +72,10 @@ class HomeScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(10),
                     color: AppColors.primary100,
                   ),
-                  child: Icon(
-                    Icons.tune,
-                    color: AppColors.white,
-                  ),
-                )
+                  child: Icon(Icons.tune, color: AppColors.white),
+                ),
               ],
-            )
+            ),
           ],
         ),
       ),
