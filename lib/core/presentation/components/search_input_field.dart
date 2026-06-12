@@ -6,11 +6,13 @@ import '../../../ui/text_styles.dart';
 class SearchInputField extends StatelessWidget {
   final String placeholder;
   final TextEditingController? controller;
+  final bool isReadOnly;
 
   const SearchInputField({
     super.key,
     required this.placeholder,
     this.controller,
+    this.isReadOnly = false,
   });
 
   @override
@@ -18,6 +20,7 @@ class SearchInputField extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: TextField(
+        readOnly: true,
         controller: controller,
         decoration: InputDecoration(
           prefixIcon: Icon(Icons.search, color: AppColors.gray4),
