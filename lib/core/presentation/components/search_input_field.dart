@@ -22,7 +22,7 @@ class SearchInputField extends StatelessWidget {
     return SizedBox(
       height: 40,
       child: TextField(
-        readOnly: true,
+        readOnly: isReadOnly,
         controller: controller,
         onChanged: onChanged,
         decoration: InputDecoration(
