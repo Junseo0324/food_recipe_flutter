@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_recipe_app/data/data_source/local/default_local_storage.dart';
 import 'package:flutter_recipe_app/data/data_source/local/local_recent_search_recipe_data_source_impl.dart';
+import 'package:flutter_recipe_app/data/data_source/local_storage.dart';
 import 'package:flutter_recipe_app/data/data_source/remote/remote_recipe_data_source_impl.dart';
 import 'package:flutter_recipe_app/data/repository/mock_recent_search_recipe_repository_impl.dart';
 import 'package:flutter_recipe_app/data/repository/mock_recipe_repository_impl.dart';
@@ -7,7 +9,9 @@ import 'package:flutter_recipe_app/domain/use_case/search_recipes_use_case.dart'
 import 'package:flutter_recipe_app/presentation/search/search_screen.dart';
 import 'package:flutter_recipe_app/presentation/search/search_view_model.dart';
 
-final _recentSearchRecipeRepository = MockRecentSearchRecipeRepositoryImpl(recipeDataSource: LocalRecentSearchRecipeDataSourceImpl());
+final LocalStorage _localStorage = DefaultLocalStorage();
+
+final _recentSearchRecipeRepository = MockRecentSearchRecipeRepositoryImpl(localStorage: _localStorage);
 
 class SearchRoot extends StatelessWidget {
   const SearchRoot({super.key});
@@ -15,7 +19,7 @@ class SearchRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = SearchViewModel(
-      recentSearchRecipeRepository: _recentSearchRecipeRepository, searchRecipesUseCase: SearchRecipesUseCase(recipeRepository: MockRecipeRepositoryImpl(recipeDataSource: RemoteRecipeDataSourceImpl())),
+      recentSearchRecipeRepository: _recentSearchRecipeRepository, searchRecipesUseCase: SearchRecipesUseCase(recipeRepository: MockRecipeRepositoryImpl(recipeDataSource: RemoteRecipeDataSourceImpl()), localStorage: _localStorage),
     );
     return ListenableBuilder(listenable: viewModel, builder: (context,widget) {
       return SearchScreen(
