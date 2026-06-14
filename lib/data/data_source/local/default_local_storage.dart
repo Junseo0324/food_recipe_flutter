@@ -1,11 +1,11 @@
 import 'package:flutter_recipe_app/data/data_source/local_storage.dart';
 
 class DefaultLocalStorage implements LocalStorage {
-  var _data = {};
+  var _data = <String,dynamic>{};
 
   @override
   Future<Map<String, dynamic>> load() async {
-    return _data as Map<String, dynamic>;
+    return _data;
   }
 
   @override

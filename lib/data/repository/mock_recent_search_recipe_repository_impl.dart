@@ -12,10 +12,14 @@ class MockRecentSearchRecipeRepositoryImpl
 
   @override
   Future<List<Recipe>> getRecentSearchRecipes() async {
-    final json = await _localStorage.load();
-    return (json['recipes']! as Iterable)
-        .map((e) => Recipe.fromJson(e))
-        .toList();
+    try {
+      final json = await _localStorage.load();
+      return (json['recipes']! as Iterable)
+          .map((e) => Recipe.fromJson(e))
+          .toList();
+    }catch(e) {
+      return [];
+    }
   }
 
   @override

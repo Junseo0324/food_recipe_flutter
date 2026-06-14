@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app/data/data_source/local/default_local_storage.dart';
-import 'package:flutter_recipe_app/data/data_source/local/local_recent_search_recipe_data_source_impl.dart';
 import 'package:flutter_recipe_app/data/data_source/local_storage.dart';
 import 'package:flutter_recipe_app/data/data_source/remote/remote_recipe_data_source_impl.dart';
 import 'package:flutter_recipe_app/data/repository/mock_recent_search_recipe_repository_impl.dart';
