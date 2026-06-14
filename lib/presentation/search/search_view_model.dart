@@ -35,7 +35,12 @@ class SearchViewModel with ChangeNotifier {
     notifyListeners();
 
     final results = await _searchRecipesUseCase.execute(query);
-    _state = state.copyWith(recipes: results, isLoading: false);
+    _state = state.copyWith(
+        recipes: results,
+        isLoading: false,
+      searchTitle: 'Search Result',
+      resultsCount: '${results.length} results',
+    );
     notifyListeners();
   }
 }

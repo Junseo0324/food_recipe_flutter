@@ -10,5 +10,7 @@ abstract class SearchState with _$SearchState {
   const factory SearchState({
     @Default([]) List<Recipe> recipes,
     @Default(true) bool isLoading,
+    @Default('Recent Search') String searchTitle,
+    @Default('') String resultsCount,
   }) = _SearchState;
 }
