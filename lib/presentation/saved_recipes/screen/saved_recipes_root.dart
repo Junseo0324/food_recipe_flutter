@@ -7,7 +7,9 @@ import 'package:flutter_recipe_app/presentation/saved_recipes/saved_recipes_view
 import 'package:flutter_recipe_app/presentation/saved_recipes/screen/saved_recipes_screen.dart';
 
 final _getSavedRecipesUseCase = GetSavedRecipesUseCase(
-  recipeRepository: MockRecipeRepositoryImpl(recipeDataSource: RemoteRecipeDataSourceImpl()),
+  recipeRepository: MockRecipeRepositoryImpl(
+    recipeDataSource: RemoteRecipeDataSourceImpl(),
+  ),
   bookmarkRepository: MockBookmarkRepositoryImpl(),
 );
 
@@ -17,7 +19,7 @@ class SavedRecipesRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = SavedRecipesViewModel(
-        getSavedRecipesUseCase: _getSavedRecipesUseCase
+      getSavedRecipesUseCase: _getSavedRecipesUseCase,
     );
 
     return ListenableBuilder(
