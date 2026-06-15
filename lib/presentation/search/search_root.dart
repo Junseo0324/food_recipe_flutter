@@ -10,7 +10,9 @@ import 'package:flutter_recipe_app/presentation/search/search_view_model.dart';
 
 final LocalStorage _localStorage = DefaultLocalStorage();
 
-final _recentSearchRecipeRepository = MockRecentSearchRecipeRepositoryImpl(localStorage: _localStorage);
+final _recentSearchRecipeRepository = MockRecentSearchRecipeRepositoryImpl(
+  localStorage: _localStorage,
+);
 
 class SearchRoot extends StatelessWidget {
   const SearchRoot({super.key});
@@ -18,13 +20,22 @@ class SearchRoot extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final viewModel = SearchViewModel(
-      recentSearchRecipeRepository: _recentSearchRecipeRepository, searchRecipesUseCase: SearchRecipesUseCase(recipeRepository: MockRecipeRepositoryImpl(recipeDataSource: RemoteRecipeDataSourceImpl()), localStorage: _localStorage),
+      recentSearchRecipeRepository: _recentSearchRecipeRepository,
+      searchRecipesUseCase: SearchRecipesUseCase(
+        recipeRepository: MockRecipeRepositoryImpl(
+          recipeDataSource: RemoteRecipeDataSourceImpl(),
+        ),
+        localStorage: _localStorage,
+      ),
     );
-    return ListenableBuilder(listenable: viewModel, builder: (context,widget) {
-      return SearchScreen(
+    return ListenableBuilder(
+      listenable: viewModel,
+      builder: (context, widget) {
+        return SearchScreen(
           state: viewModel.state,
-        onChanged: viewModel.searchRecipes,
-      );
-    });
+          onChanged: viewModel.searchRecipes,
+        );
+      },
+    );
   }
 }
