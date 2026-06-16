@@ -1,3 +1,4 @@
+import 'package:flutter_recipe_app/domain/filter/filter_state.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../domain/model/recipe.dart';
@@ -12,5 +13,7 @@ abstract class SearchState with _$SearchState {
     @Default(true) bool isLoading,
     @Default('Recent Search') String searchTitle,
     @Default('') String resultsCount,
+    @Default(FilterState(time: 'Newest', rate: 4, category: 'Local Dish'))
+    FilterState filterState,
   }) = _SearchState;
 }
