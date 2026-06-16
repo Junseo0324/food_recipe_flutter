@@ -15,5 +15,6 @@ abstract class SearchState with _$SearchState {
     @Default('') String resultsCount,
     @Default(FilterState(time: 'Newest', rate: 4, category: 'Local Dish'))
     FilterState filterState,
+    @Default('') String query,
   }) = _SearchState;
 }

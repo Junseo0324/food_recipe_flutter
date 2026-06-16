@@ -31,24 +31,27 @@ class SearchViewModel with ChangeNotifier {
     notifyListeners();
   }
 
-  void searchRecipes(String query) async {
+  Future<void> searchRecipes(String query) async {
     _state = state.copyWith(isLoading: true);
     notifyListeners();
 
-    final results = await _searchRecipesUseCase.execute(query);
+    final results = await _searchRecipesUseCase.execute(
+      query,
+      state.filterState,
+    );
     _state = state.copyWith(
-        recipes: results,
-        isLoading: false,
+      recipes: results,
+      isLoading: false,
       searchTitle: 'Search Result',
       resultsCount: '${results.length} results',
+      query: query,
     );
     notifyListeners();
   }
 
   void onChangeFilter(FilterState filterState) async {
-    _state = state.copyWith(
-      filterState: filterState
-    );
+    _state = state.copyWith(filterState: filterState);
+    await searchRecipes(state.query);
     notifyListeners();
   }
 }
