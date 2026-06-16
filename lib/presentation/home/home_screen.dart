@@ -89,7 +89,7 @@ class HomeScreen extends StatelessWidget {
           ),
           const SizedBox(height: 15),
           Padding(
-            padding: const EdgeInsets.only(left: 30),
+            padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),
             child: RecipeCategorySelector(
               categories: state.categories,
               selectedCategory: state.selectedCategory,

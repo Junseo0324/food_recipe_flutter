@@ -8,6 +8,7 @@ import 'package:flutter_recipe_app/data/repository/mock_recipe_repository_impl.d
 import 'package:flutter_recipe_app/domain/repository/bookmark_repository.dart';
 import 'package:flutter_recipe_app/domain/repository/recent_search_recipe_repository.dart';
 import 'package:flutter_recipe_app/domain/repository/recipe_repository.dart';
+import 'package:flutter_recipe_app/domain/use_case/get_categories_use_case.dart';
 import 'package:flutter_recipe_app/domain/use_case/get_saved_recipes_use_case.dart';
 import 'package:flutter_recipe_app/domain/use_case/search_recipes_use_case.dart';
 import 'package:flutter_recipe_app/presentation/home/home_viewmodel.dart';
@@ -42,6 +43,10 @@ void diSetup() {
     SearchRecipesUseCase(recipeRepository: getIt(), localStorage: getIt()),
   );
 
+  getIt.registerSingleton(
+    GetCategoriesUseCase(recipeRepository: getIt()),
+  );
+
   // ViewModel
   getIt.registerFactory<SavedRecipesViewModel>(
     () => SavedRecipesViewModel(getSavedRecipesUseCase: getIt()),
@@ -54,5 +59,7 @@ void diSetup() {
     ),
   );
 
-  getIt.registerFactory<HomeViewModel>(() => HomeViewModel());
+  getIt.registerFactory<HomeViewModel>(() => HomeViewModel(
+    getCategoriesUseCase: getIt(),
+  ));
 }
