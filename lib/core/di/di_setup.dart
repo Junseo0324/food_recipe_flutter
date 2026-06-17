@@ -16,6 +16,8 @@ import 'package:flutter_recipe_app/presentation/saved_recipes/saved_recipes_view
 import 'package:flutter_recipe_app/presentation/search/search_view_model.dart';
 import 'package:get_it/get_it.dart';
 
+import '../../domain/use_case/get_dishes_by_category_use_case.dart';
+
 final getIt = GetIt.instance;
 
 void diSetup() {
@@ -43,8 +45,10 @@ void diSetup() {
     SearchRecipesUseCase(recipeRepository: getIt(), localStorage: getIt()),
   );
 
+  getIt.registerSingleton(GetCategoriesUseCase(recipeRepository: getIt()));
+
   getIt.registerSingleton(
-    GetCategoriesUseCase(recipeRepository: getIt()),
+    GetDishesByCategoryUseCase(recipeRepository: getIt()),
   );
 
   // ViewModel
@@ -59,7 +63,10 @@ void diSetup() {
     ),
   );
 
-  getIt.registerFactory<HomeViewModel>(() => HomeViewModel(
-    getCategoriesUseCase: getIt(),
-  ));
+  getIt.registerFactory<HomeViewModel>(
+    () => HomeViewModel(
+      getCategoriesUseCase: getIt(),
+      getDishesByCategoryUseCase: getIt(),
+    ),
+  );
 }
