@@ -25,121 +25,123 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: Column(
-              children: [
-                SizedBox(height: 20),
-                Row(
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text('Hello $name', style: TextStyles.largeTextBold),
-                        const SizedBox(height: 5),
-                        Text(
-                          'What are you cooking today?',
-                          style: TextStyles.smallerTextRegular.copyWith(
-                            color: AppColors.gray3,
+      child: SingleChildScrollView(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 30),
+              child: Column(
+                children: [
+                  SizedBox(height: 20),
+                  Row(
+                    children: [
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text('Hello $name', style: TextStyles.largeTextBold),
+                          const SizedBox(height: 5),
+                          Text(
+                            'What are you cooking today?',
+                            style: TextStyles.smallerTextRegular.copyWith(
+                              color: AppColors.gray3,
+                            ),
+                          ),
+                        ],
+                      ),
+                      const Spacer(),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.secondary40,
+                        ),
+                        child: Icon(Icons.person_2, color: AppColors.primary40),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 30),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: GestureDetector(
+                          behavior: HitTestBehavior.opaque,
+                          onTap: onTapSearchField,
+                          child: IgnorePointer(
+                            child: SearchInputField(
+                              placeholder: 'Search Recipe',
+                              isReadOnly: true,
+                            ),
                           ),
                         ),
-                      ],
-                    ),
-                    const Spacer(),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.secondary40,
                       ),
-                      child: Icon(Icons.person_2, color: AppColors.primary40),
-                    ),
-                  ],
-                ),
-                SizedBox(height: 30),
-                Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
-                        behavior: HitTestBehavior.opaque,
-                        onTap: onTapSearchField,
-                        child: IgnorePointer(
-                          child: SearchInputField(
-                            placeholder: 'Search Recipe',
-                            isReadOnly: true,
-                          ),
+                      SizedBox(width: 20),
+                      Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppColors.primary100,
                         ),
+                        child: Icon(Icons.tune, color: AppColors.white),
                       ),
-                    ),
-                    SizedBox(width: 20),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppColors.primary100,
-                      ),
-                      child: Icon(Icons.tune, color: AppColors.white),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),
-            child: RecipeCategorySelector(
-              categories: state.categories,
-              selectedCategory: state.selectedCategory,
-              onSelectCategory: onSelectCategory,
-            ),
-          ),
-          const SizedBox(height: 15),
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: state.dishes
-                    .map((e) => Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: DishCard(
-                      recipe: e, isFavorite: true,
-                                      ),
-                    )).toList(),
+                    ],
+                  ),
+                ],
               ),
             ),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.only(left: 30),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                    'New Recipes',
-                  style: TextStyles.normalTextBold,
-                ),
-                const SizedBox(height: 5),
-                SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  child: Row(
-                    children: state.newRecipes.map((e) => Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child: NewRecipeCard(recipe: e,),
-                    )).toList(),
-                  ),
-                )
-              ],
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 30, top: 10, bottom: 10),
+              child: RecipeCategorySelector(
+                categories: state.categories,
+                selectedCategory: state.selectedCategory,
+                onSelectCategory: onSelectCategory,
+              ),
             ),
-          ),
-
-        ],
+            const SizedBox(height: 15),
+            Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: Row(
+                  children: state.dishes
+                      .map((e) => Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: DishCard(
+                        recipe: e, isFavorite: true,
+                                        ),
+                      )).toList(),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 30),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                      'New Recipes',
+                    style: TextStyles.normalTextBold,
+                  ),
+                  const SizedBox(height: 5),
+                  SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    child: Row(
+                      children: state.newRecipes.map((e) => Padding(
+                        padding: const EdgeInsets.only(right: 15),
+                        child: NewRecipeCard(recipe: e,),
+                      )).toList(),
+                    ),
+                  )
+                ],
+              ),
+            ),
+        
+          ],
+        ),
       ),
     );
   }
