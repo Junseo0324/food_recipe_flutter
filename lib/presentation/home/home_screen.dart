@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app/core/presentation/components/dish_card.dart';
 import 'package:flutter_recipe_app/core/presentation/components/recipe_category_selector.dart';
 import 'package:flutter_recipe_app/core/presentation/components/search_input_field.dart';
+import 'package:flutter_recipe_app/presentation/home/home_action.dart';
 import 'package:flutter_recipe_app/presentation/home/home_state.dart';
 
 import '../../core/presentation/components/new_recipe_card.dart';
@@ -9,17 +10,13 @@ import '../../ui/color_styles.dart';
 import '../../ui/text_styles.dart';
 
 class HomeScreen extends StatelessWidget {
-  final String name;
-  final void Function() onTapSearchField;
-  final void Function(String category) onSelectCategory;
   final HomeState state;
+  final void Function(HomeAction action) onAction;
 
   const HomeScreen({
     super.key,
-    required this.name,
-    required this.onTapSearchField,
     required this.state,
-    required this.onSelectCategory,
+    required this.onAction,
   });
 
   @override
@@ -39,7 +36,7 @@ class HomeScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Hello $name', style: TextStyles.largeTextBold),
+                          Text('Hello ${state.name}', style: TextStyles.largeTextBold),
                           const SizedBox(height: 5),
                           Text(
                             'What are you cooking today?',
@@ -67,7 +64,7 @@ class HomeScreen extends StatelessWidget {
                       Expanded(
                         child: GestureDetector(
                           behavior: HitTestBehavior.opaque,
-                          onTap: onTapSearchField,
+                          onTap: () => onAction(HomeAction.onTapSearchField()),
                           child: IgnorePointer(
                             child: SearchInputField(
                               placeholder: 'Search Recipe',
@@ -97,7 +94,7 @@ class HomeScreen extends StatelessWidget {
               child: RecipeCategorySelector(
                 categories: state.categories,
                 selectedCategory: state.selectedCategory,
-                onSelectCategory: onSelectCategory,
+                onSelectCategory: (category) => onAction(HomeAction.onSelectCategory(category)),
               ),
             ),
             const SizedBox(height: 15),
