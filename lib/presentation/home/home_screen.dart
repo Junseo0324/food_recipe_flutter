@@ -4,6 +4,7 @@ import 'package:flutter_recipe_app/core/presentation/components/recipe_category_
 import 'package:flutter_recipe_app/core/presentation/components/search_input_field.dart';
 import 'package:flutter_recipe_app/presentation/home/home_state.dart';
 
+import '../../core/presentation/components/new_recipe_card.dart';
 import '../../ui/color_styles.dart';
 import '../../ui/text_styles.dart';
 
@@ -25,6 +26,7 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -112,7 +114,31 @@ class HomeScreen extends StatelessWidget {
                     )).toList(),
               ),
             ),
-          )
+          ),
+          const SizedBox(height: 20),
+          Padding(
+            padding: const EdgeInsets.only(left: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                    'New Recipes',
+                  style: TextStyles.normalTextBold,
+                ),
+                const SizedBox(height: 5),
+                SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: Row(
+                    children: state.newRecipes.map((e) => Padding(
+                      padding: const EdgeInsets.only(right: 15),
+                      child: NewRecipeCard(recipe: e,),
+                    )).toList(),
+                  ),
+                )
+              ],
+            ),
+          ),
+
         ],
       ),
     );
