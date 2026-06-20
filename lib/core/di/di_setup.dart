@@ -66,7 +66,7 @@ void diSetup() {
   );
   // ViewModel
   getIt.registerFactory<SavedRecipesViewModel>(
-    () => SavedRecipesViewModel(getSavedRecipesUseCase: getIt()),
+    () => SavedRecipesViewModel(getSavedRecipesUseCase: getIt(), toggleBookmarkRecipeUseCase: getIt()),
   );
 
   getIt.registerFactory<SearchViewModel>(

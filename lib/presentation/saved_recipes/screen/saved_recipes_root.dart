@@ -17,7 +17,10 @@ class SavedRecipesRoot extends StatelessWidget {
         if (state.isLoading) {
           return const Center(child: CircularProgressIndicator());
         }
-        return SavedRecipesScreen(recipes: state.recipes);
+        return SavedRecipesScreen(
+          recipes: state.recipes,
+          onAction: viewModel.onAction,
+        );
       },
     );
   }

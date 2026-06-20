@@ -9,6 +9,6 @@ part 'saved_recipes_state.freezed.dart';
 abstract class SavedRecipesState with _$SavedRecipesState {
   const factory SavedRecipesState({
     @Default([]) List<Recipe> recipes,
-    @Default(true) bool isLoading,
+    @Default(false) bool isLoading,
   }) = _SavedRecipesState;
 }

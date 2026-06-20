@@ -6,8 +6,13 @@ import '../../../ui/text_styles.dart';
 
 class RecipeCard extends StatelessWidget {
   final Recipe recipe;
+  final void Function(Recipe recipe) onTapFavorite;
 
-  const RecipeCard({super.key, required this.recipe});
+  const RecipeCard({
+    super.key,
+    required this.recipe,
+    required this.onTapFavorite,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -55,21 +60,19 @@ class RecipeCard extends StatelessWidget {
             right: 10,
             bottom: 10,
             child: Row(
-                children: [
-                  Icon(
-                      Icons.alarm,
-                      color: AppColors.white,
-                      size: 17
+              children: [
+                Icon(Icons.alarm, color: AppColors.white, size: 17),
+                SizedBox(width: 5),
+                Text(
+                  recipe.time,
+                  style: TextStyles.smallerTextRegular.copyWith(
+                    color: AppColors.white,
                   ),
-                  SizedBox(width: 5),
-                  Text(
-                    recipe.time,
-                    style: TextStyles.smallerTextRegular.copyWith(
-                      color: AppColors.white,
-                    ),
-                  ),
-                  SizedBox(width: 10),
-                  ClipOval(
+                ),
+                SizedBox(width: 10),
+                GestureDetector(
+                  onTap: ()=> onTapFavorite(recipe),
+                  child: ClipOval(
                     child: Container(
                       color: AppColors.white,
                       padding: EdgeInsets.all(3),
@@ -79,8 +82,9 @@ class RecipeCard extends StatelessWidget {
                         size: 16,
                       ),
                     ),
-                  )
-                ],
+                  ),
+                ),
+              ],
             ),
           ),
           Positioned(
@@ -96,16 +100,15 @@ class RecipeCard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.star, color: AppColors.rating,size: 12,),
+                  Icon(Icons.star, color: AppColors.rating, size: 12),
                   Text(
-                      recipe.rating.toString(),
+                    recipe.rating.toString(),
                     style: TextStyles.smallerTextRegular,
                   ),
                 ],
               ),
             ),
           ),
-
         ],
       ),
     );

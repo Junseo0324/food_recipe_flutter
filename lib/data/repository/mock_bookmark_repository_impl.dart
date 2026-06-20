@@ -1,10 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter_recipe_app/domain/repository/bookmark_repository.dart';
+import 'package:rxdart/rxdart.dart';
 
 class MockBookmarkRepositoryImpl implements BookmarkRepository {
   final _ids = <int>{2, 3};
-  final _controller = StreamController<Set<int>>.broadcast();
+  final _controller = BehaviorSubject<Set<int>>();
 
 
   MockBookmarkRepositoryImpl() {
