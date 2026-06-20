@@ -13,7 +13,7 @@ abstract class SearchState with _$SearchState {
     @Default(true) bool isLoading,
     @Default('Recent Search') String searchTitle,
     @Default('') String resultsCount,
-    @Default(FilterState(time: 'Newest', rate: 4, category: 'Local Dish'))
+    @Default(const FilterState(time: 'Newest', rate: 4, category: 'Local Dish'))
     FilterState filterState,
     @Default('') String query,
   }) = _SearchState;

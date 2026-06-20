@@ -6,6 +6,7 @@ import 'package:flutter_recipe_app/presentation/home/home_action.dart';
 import 'package:flutter_recipe_app/presentation/home/home_state.dart';
 
 import '../../core/presentation/components/new_recipe_card.dart';
+import '../../domain/model/recipe.dart';
 import '../../ui/color_styles.dart';
 import '../../ui/text_styles.dart';
 
@@ -13,11 +14,7 @@ class HomeScreen extends StatelessWidget {
   final HomeState state;
   final void Function(HomeAction action) onAction;
 
-  const HomeScreen({
-    super.key,
-    required this.state,
-    required this.onAction,
-  });
+  const HomeScreen({super.key, required this.state, required this.onAction});
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +33,10 @@ class HomeScreen extends StatelessWidget {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text('Hello ${state.name}', style: TextStyles.largeTextBold),
+                          Text(
+                            'Hello ${state.name}',
+                            style: TextStyles.largeTextBold,
+                          ),
                           const SizedBox(height: 5),
                           Text(
                             'What are you cooking today?',
@@ -94,7 +94,9 @@ class HomeScreen extends StatelessWidget {
               child: RecipeCategorySelector(
                 categories: state.categories,
                 selectedCategory: state.selectedCategory,
-                onSelectCategory: (category) => onAction(HomeAction.onSelectCategory(category)),
+                onSelectCategory:
+                    (category) =>
+                        onAction(HomeAction.onSelectCategory(category)),
               ),
             ),
             const SizedBox(height: 15),
@@ -103,13 +105,20 @@ class HomeScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
                 child: Row(
-                  children: state.dishes
-                      .map((e) => Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: DishCard(
-                        recipe: e, isFavorite: true,
-                                        ),
-                      )).toList(),
+                  children:
+                      state.dishes
+                          .map(
+                            (e) => Padding(
+                              padding: const EdgeInsets.only(right: 15),
+                              child: DishCard(
+                                recipe: e,
+                                onTapFavorite: (Recipe recipe) {
+                                  onAction(HomeAction.onTapFavorite(recipe));
+                                },
+                              ),
+                            ),
+                          )
+                          .toList(),
                 ),
               ),
             ),
@@ -119,24 +128,25 @@ class HomeScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                      'New Recipes',
-                    style: TextStyles.normalTextBold,
-                  ),
+                  Text('New Recipes', style: TextStyles.normalTextBold),
                   const SizedBox(height: 5),
                   SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
                     child: Row(
-                      children: state.newRecipes.map((e) => Padding(
-                        padding: const EdgeInsets.only(right: 15),
-                        child: NewRecipeCard(recipe: e,),
-                      )).toList(),
+                      children:
+                          state.newRecipes
+                              .map(
+                                (e) => Padding(
+                                  padding: const EdgeInsets.only(right: 15),
+                                  child: NewRecipeCard(recipe: e),
+                                ),
+                              )
+                              .toList(),
                     ),
-                  )
+                  ),
                 ],
               ),
             ),
-        
           ],
         ),
       ),
