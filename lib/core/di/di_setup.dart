@@ -3,9 +3,13 @@ import 'package:flutter_recipe_app/data/data_source/local_storage.dart';
 import 'package:flutter_recipe_app/data/data_source/recipe_data_source.dart';
 import 'package:flutter_recipe_app/data/data_source/remote/remote_recipe_data_source_impl.dart';
 import 'package:flutter_recipe_app/data/repository/mock_bookmark_repository_impl.dart';
+import 'package:flutter_recipe_app/data/repository/mock_ingredient_repository_impl.dart';
+import 'package:flutter_recipe_app/data/repository/mock_procedure_repository_impl.dart';
 import 'package:flutter_recipe_app/data/repository/mock_recent_search_recipe_repository_impl.dart';
 import 'package:flutter_recipe_app/data/repository/mock_recipe_repository_impl.dart';
 import 'package:flutter_recipe_app/domain/repository/bookmark_repository.dart';
+import 'package:flutter_recipe_app/domain/repository/ingredient_repository.dart';
+import 'package:flutter_recipe_app/domain/repository/procedure_repository.dart';
 import 'package:flutter_recipe_app/domain/repository/recent_search_recipe_repository.dart';
 import 'package:flutter_recipe_app/domain/repository/recipe_repository.dart';
 import 'package:flutter_recipe_app/domain/use_case/get_categories_use_case.dart';
@@ -14,6 +18,7 @@ import 'package:flutter_recipe_app/domain/use_case/get_saved_recipes_use_case.da
 import 'package:flutter_recipe_app/domain/use_case/search_recipes_use_case.dart';
 import 'package:flutter_recipe_app/domain/use_case/toggle_bookmark_recipe_use_case.dart';
 import 'package:flutter_recipe_app/presentation/home/home_viewmodel.dart';
+import 'package:flutter_recipe_app/presentation/ingredient/ingredient_view_model.dart';
 import 'package:flutter_recipe_app/presentation/saved_recipes/saved_recipes_view_model.dart';
 import 'package:flutter_recipe_app/presentation/search/search_view_model.dart';
 import 'package:get_it/get_it.dart';
@@ -35,6 +40,9 @@ void diSetup() {
   getIt.registerSingleton<RecentSearchRecipeRepository>(
     MockRecentSearchRecipeRepositoryImpl(localStorage: getIt()),
   );
+
+  getIt.registerSingleton<IngredientRepository>(MockIngredientRepository());
+  getIt.registerSingleton<ProcedureRepository>(MockProcedureRepositoryImpl());
 
   // UseCase
   getIt.registerSingleton(
@@ -66,7 +74,10 @@ void diSetup() {
   );
   // ViewModel
   getIt.registerFactory<SavedRecipesViewModel>(
-    () => SavedRecipesViewModel(getSavedRecipesUseCase: getIt(), toggleBookmarkRecipeUseCase: getIt()),
+    () => SavedRecipesViewModel(
+      getSavedRecipesUseCase: getIt(),
+      toggleBookmarkRecipeUseCase: getIt(),
+    ),
   );
 
   getIt.registerFactory<SearchViewModel>(
@@ -82,6 +93,14 @@ void diSetup() {
       getDishesByCategoryUseCase: getIt(),
       getNewRecipesUseCase: getIt(),
       bookmarkRecipeUseCase: getIt(),
+    ),
+  );
+
+  getIt.registerFactory<IngredientViewModel>(
+    () => IngredientViewModel(
+      ingredientRepository: getIt(),
+      procedureRepository: getIt(),
+      getDishesByCategoryUseCase: getIt(),
     ),
   );
 }

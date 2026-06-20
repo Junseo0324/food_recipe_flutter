@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app/core/routing/route_paths.dart';
 import 'package:flutter_recipe_app/presentation/home/home_root.dart';
 import 'package:flutter_recipe_app/presentation/home/home_screen.dart';
+import 'package:flutter_recipe_app/presentation/ingredient/ingredient_root.dart';
 import 'package:flutter_recipe_app/presentation/main/main_screen.dart';
 import 'package:flutter_recipe_app/presentation/notifications/notifications_screen.dart';
 import 'package:flutter_recipe_app/presentation/profile/profile_screen.dart';
@@ -18,9 +19,17 @@ final router = GoRouter(
   initialLocation: RoutePaths.splash,
   routes: [
     GoRoute(
+      path: RoutePaths.ingredient,
+      builder: (context, state) {
+        final recipeId = int.parse(state.pathParameters['recipeId']!);
+        return IngredientRoot(recipeId: recipeId);
+      }
+    ),
+    GoRoute(
       path: RoutePaths.signUp,
       builder:
-          (context, state) => SignUpScreen(
+          (context, state) =>
+          SignUpScreen(
             onTapSignIn: () {
               context.go(RoutePaths.signIn);
             },
@@ -29,14 +38,16 @@ final router = GoRouter(
     GoRoute(
       path: RoutePaths.splash,
       builder:
-          (context, state) => SplashScreen(
+          (context, state) =>
+          SplashScreen(
             onTapStartCooking: () => context.go(RoutePaths.signIn),
           ),
     ),
     GoRoute(
       path: RoutePaths.signIn,
       builder:
-          (context, state) => SignInScreen(
+          (context, state) =>
+          SignInScreen(
             onTapSignUp: () => context.go(RoutePaths.signUp),
             onTapSingIn: () => context.go(RoutePaths.home),
           ),
@@ -58,14 +69,14 @@ final router = GoRouter(
         StatefulShellBranch(
           routes: [
             GoRoute(
-              path: RoutePaths.home,
-              builder: (context, state) => HomeRoot(),
-              routes: [
-                GoRoute(
-                  path: 'Search',
-                  builder: (context, state) => SearchRoot(),
-                ),
-              ]
+                path: RoutePaths.home,
+                builder: (context, state) => HomeRoot(),
+                routes: [
+                  GoRoute(
+                    path: 'Search',
+                    builder: (context, state) => SearchRoot(),
+                  ),
+                ]
             ),
           ],
         ),
