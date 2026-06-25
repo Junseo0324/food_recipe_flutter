@@ -13,6 +13,7 @@ abstract class IngredientState with _$IngredientState {
     Recipe? recipe,
     @Default([]) List<Ingredient> ingredients,
     @Default([]) List<Procedure> procedures,
+    @Default(0) int selectedTabIndex,
 
   }) = _IngredientState;
 

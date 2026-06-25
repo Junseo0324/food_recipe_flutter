@@ -29,7 +29,11 @@ class IngredientViewModel with ChangeNotifier {
         _loadRecipe(action.recipeId);
       case OnTapFavorite():
       case OnTapIngredient():
+        _state = state.copyWith(selectedTabIndex: 0);
+        notifyListeners();
       case OnTapProcedure():
+        _state = state.copyWith(selectedTabIndex: 1);
+        notifyListeners();
       case OnTapFollow():
     }
   }

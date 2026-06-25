@@ -17,10 +17,12 @@ class IngredientRoot extends StatelessWidget {
     return ListenableBuilder(
       listenable: viewModel,
       builder: (context, widget) {
-        return IngredientScreen(
-          state: viewModel.state,
-          onAction: viewModel.onAction,
-        );
+        return viewModel.state.recipe == null
+            ? Center(child: CircularProgressIndicator())
+            : IngredientScreen(
+              state: viewModel.state,
+              onAction: viewModel.onAction,
+            );
       },
     );
   }
