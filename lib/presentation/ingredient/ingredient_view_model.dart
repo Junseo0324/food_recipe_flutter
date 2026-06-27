@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app/domain/repository/procedure_repository.dart';
 import 'package:flutter_recipe_app/domain/use_case/get_dishes_by_category_use_case.dart';
@@ -34,6 +36,13 @@ class IngredientViewModel with ChangeNotifier {
       case OnTapProcedure():
         _state = state.copyWith(selectedTabIndex: 1);
         notifyListeners();
+      case OnTapShareMenu():
+        log(action.link);
+      case OnTapRateRecipe():
+        log('${action.rate}');
+      case OnTapUnsave():
+        // TODO: Handle this case.
+        throw UnimplementedError();
       case OnTapFollow():
     }
   }

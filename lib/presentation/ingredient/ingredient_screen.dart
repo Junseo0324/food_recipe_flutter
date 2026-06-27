@@ -10,20 +10,74 @@ import 'package:flutter_recipe_app/ui/color_styles.dart';
 
 import '../../ui/text_styles.dart';
 
+enum IngredientMenu { share, rate, review, unSave }
+
 class IngredientScreen extends StatelessWidget {
   final IngredientState state;
   final void Function(IngredientAction action) onAction;
+  final void Function(IngredientMenu menu) onTapMenu;
 
   const IngredientScreen({
     super.key,
     required this.state,
+    required this.onTapMenu,
     required this.onAction,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(
+        actions: [
+          PopupMenuButton(
+            icon: Icon(Icons.more_horiz, size: 24),
+            itemBuilder: (context) {
+              return [
+                PopupMenuItem(
+                  onTap: () => onTapMenu(IngredientMenu.share),
+                  child: Row(
+                    children: [
+                      Icon(Icons.share, size: 20),
+                      SizedBox(width: 16),
+                      Text('Share', style: TextStyles.smallTextRegular),
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  onTap: () => onTapMenu(IngredientMenu.rate),
+                  child: Row(
+                    children: [
+                      Icon(Icons.star, size: 20),
+                      SizedBox(width: 16),
+                      Text('Rate Recipes', style: TextStyles.smallTextRegular),
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  onTap: () => onTapMenu(IngredientMenu.review),
+                  child: Row(
+                    children: [
+                      Icon(Icons.comment, size: 20),
+                      SizedBox(width: 16),
+                      Text('Review', style: TextStyles.smallTextRegular),
+                    ],
+                  ),
+                ),
+                PopupMenuItem(
+                  onTap: () => onTapMenu(IngredientMenu.unSave),
+                  child: Row(
+                    children: [
+                      Icon(Icons.bookmark, size: 20),
+                      SizedBox(width: 16),
+                      Text('Unsave', style: TextStyles.smallTextRegular),
+                    ],
+                  ),
+                ),
+              ];
+            },
+          ),
+        ],
+      ),
       body: SafeArea(
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -57,8 +111,7 @@ class IngredientScreen extends StatelessWidget {
                     ProcedureList(state: state),
                   ],
                 ),
-              )
-
+              ),
             ],
           ),
         ),
@@ -68,10 +121,7 @@ class IngredientScreen extends StatelessWidget {
 }
 
 class IngredientList extends StatelessWidget {
-  const IngredientList({
-    super.key,
-    required this.state,
-  });
+  const IngredientList({super.key, required this.state});
 
   final IngredientState state;
 
@@ -82,32 +132,35 @@ class IngredientList extends StatelessWidget {
         Row(
           children: [
             Icon(Icons.room_service, size: 17, color: AppColors.gray3),
-            SizedBox(width: 5,),
+            SizedBox(width: 5),
             Text(
               '1 serve',
               style: TextStyles.smallerTextRegular.copyWith(
-                  color: AppColors.gray3),
+                color: AppColors.gray3,
+              ),
             ),
             Spacer(),
             Text(
               '${state.ingredients.length} Items',
               style: TextStyles.smallerTextRegular.copyWith(
-                  color: AppColors.gray3),
+                color: AppColors.gray3,
+              ),
             ),
           ],
         ),
-        SizedBox(height: 23.5,),
+        SizedBox(height: 23.5),
         Expanded(
           child: ListView.builder(
             itemCount: state.ingredients.length,
-              itemBuilder: (context, index) {
-            return Column(
-              children: [
-                IngredientItem(ingredient: state.ingredients[index]),
-                SizedBox(height: 10,),
-              ],
-            );
-          }),
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  IngredientItem(ingredient: state.ingredients[index]),
+                  SizedBox(height: 10),
+                ],
+              );
+            },
+          ),
         ),
       ],
     );
@@ -115,10 +168,7 @@ class IngredientList extends StatelessWidget {
 }
 
 class ProcedureList extends StatelessWidget {
-  const ProcedureList({
-    super.key,
-    required this.state,
-  });
+  const ProcedureList({super.key, required this.state});
 
   final IngredientState state;
 
@@ -129,36 +179,37 @@ class ProcedureList extends StatelessWidget {
         Row(
           children: [
             Icon(Icons.room_service, size: 17, color: AppColors.gray3),
-            SizedBox(width: 5,),
+            SizedBox(width: 5),
             Text(
               '1 serve',
               style: TextStyles.smallerTextRegular.copyWith(
-                  color: AppColors.gray3),
+                color: AppColors.gray3,
+              ),
             ),
             Spacer(),
             Text(
               '${state.procedures.length} Steps',
               style: TextStyles.smallerTextRegular.copyWith(
-                  color: AppColors.gray3),
+                color: AppColors.gray3,
+              ),
             ),
           ],
         ),
-        SizedBox(height: 23.5,),
+        SizedBox(height: 23.5),
         Expanded(
           child: ListView.builder(
             itemCount: state.procedures.length,
-              itemBuilder: (context, index) {
-            return Column(
-              children: [
-                ProcedureItem(procedure: state.procedures[index]),
-                SizedBox(height: 10,),
-              ],
-            );
-          }),
+            itemBuilder: (context, index) {
+              return Column(
+                children: [
+                  ProcedureItem(procedure: state.procedures[index]),
+                  SizedBox(height: 10),
+                ],
+              );
+            },
+          ),
         ),
       ],
     );
   }
 }
-
-

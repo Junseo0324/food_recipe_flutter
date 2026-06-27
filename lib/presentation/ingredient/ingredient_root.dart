@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_recipe_app/core/di/di_setup.dart';
+import 'package:flutter_recipe_app/core/presentation/dialogs/rating_dialog.dart';
+import 'package:flutter_recipe_app/core/presentation/dialogs/share_dialog.dart';
 import 'package:flutter_recipe_app/presentation/ingredient/ingredient_action.dart';
 import 'package:flutter_recipe_app/presentation/ingredient/ingredient_screen.dart';
 
@@ -21,6 +23,50 @@ class IngredientRoot extends StatelessWidget {
             ? Center(child: CircularProgressIndicator())
             : IngredientScreen(
               state: viewModel.state,
+              onTapMenu: (menu) {
+                switch (menu) {
+                  case IngredientMenu.share:
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return ShareDialog(
+                          link: 'app.Recipe.co/jollof_rice',
+                          onTapCopyLink: (link) {
+                            viewModel.onAction(
+                              IngredientAction.onTapShareMenu(link),
+                            );
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
+                    );
+                  case IngredientMenu.rate:
+                    showDialog(
+                      context: context,
+                      builder: (context) {
+                        return RatingDialog(
+                          title: 'Rate recipe',
+                          actionName: 'Send',
+                          onChange: (score) {
+                            viewModel.onAction(
+                              IngredientAction.onTapRateRecipe(
+                                viewModel.state.recipe!,
+                                score,
+                              ),
+                            );
+                            Navigator.pop(context);
+                          },
+                        );
+                      },
+                    );
+                  case IngredientMenu.review:
+                    // TODO: Handle this case.
+                    throw UnimplementedError();
+                  case IngredientMenu.unSave:
+                    // TODO: Handle this case.
+                    throw UnimplementedError();
+                }
+              },
               onAction: viewModel.onAction,
             );
       },
