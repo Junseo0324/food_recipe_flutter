@@ -4,6 +4,7 @@ import 'package:flutter_recipe_app/core/presentation/dialogs/rating_dialog.dart'
 import 'package:flutter_recipe_app/core/presentation/dialogs/share_dialog.dart';
 import 'package:flutter_recipe_app/presentation/ingredient/ingredient_action.dart';
 import 'package:flutter_recipe_app/presentation/ingredient/ingredient_screen.dart';
+import 'package:flutter_recipe_app/ui/color_styles.dart';
 
 import 'ingredient_view_model.dart';
 
@@ -34,6 +35,14 @@ class IngredientRoot extends StatelessWidget {
                           onTapCopyLink: (link) {
                             viewModel.onAction(
                               IngredientAction.onTapShareMenu(link),
+                            );
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text(
+                                  'Link Copied',
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
                             );
                             Navigator.pop(context);
                           },
