@@ -6,14 +6,12 @@ import '../../../ui/text_styles.dart';
 
 class RatingDialog extends StatefulWidget {
   final String title;
-  final int score;
   final String actionName;
   final void Function(int score) onChange;
 
   const RatingDialog({
     super.key,
     required this.title,
-    required this.score,
     required this.actionName,
     required this.onChange,
   });
@@ -39,9 +37,18 @@ class _RatingDialogState extends State<RatingDialog> {
           });
         },
       ),
-      actions: [SmallButton('send', onPressed: () {
-        widget.onChange(_value);
-      }, color: AppColors.rating)],
+      actions: [
+        SmallButton(
+          'send',
+          onPressed:
+              _value == 0
+                  ? null
+                  : () {
+                    widget.onChange(_value);
+                  },
+          color: AppColors.rating,
+        ),
+      ],
     );
   }
 }
